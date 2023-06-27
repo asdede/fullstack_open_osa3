@@ -124,7 +124,9 @@ app.post("/api/persons",(req,res) => {
             error: "Name already exists in database"
         });
     }
-})
+});
+
+app.options("/api/persons", cors());
 
 
 const PORT = process.env.PORT || 3001
