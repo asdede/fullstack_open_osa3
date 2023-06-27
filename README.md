@@ -11,3 +11,18 @@ Osa 3 tehtäväsarja
 - [x] 3.6 puhelinluettelon backend step6
 - [x] 3.7 puhelinluettelon backend step7
 - [x] 3.8 puhelinluettelon backend step8
+- [x] 3.9 puhelinluettelon backend step9
+ 
+
+### Sivu jossa sovellus
+
+: https://render-test-d1gm.onrender.com
+
+Huom, sivu voi olla kiinni näistä syistä:
+- ["Web Services on the free instance type are automatically spun down after 15 minutes of inactivity"](https://render.com/docs/free)
+- ["750 hours of running time per month across all free Web Services in your account"](https://render.com/docs/free)
+- Näyttäis myös kaatuilevan satunnaisesti.
+
+Jos näistä syistä on kiinni, voi tarvittaesa ottaa yhteyttä discordissa
+: asdasdasd11
+

@@ -30,9 +30,7 @@ const App = () => {
   const [[errorMsg,msgCode],setErrorMsg] = useState([null,null]);
   
   const addContact = (event) => {
-    console.log("AddContact")
     event.preventDefault();
-    console.log(event)
   
     if (checkIfExists(persons,newContact)) {
       const msg = "Name already exists in database: " + String(newContact) + "\nOr name is blank"
@@ -40,29 +38,34 @@ const App = () => {
       setTimeout(() => {
         setErrorMsg([null,null])
       },5000)
+      return;
     }
-    else {
-      console.log("Adding new contact")
-      const phonebookObject = {
+
+
+    const phonebookObject = {
         name: newContact,
         number: newNum
-      }
-      console.log(phonebookObject)
-      console.log("Id:",persons.length + 1)
-      setPersons(persons.concat(phonebookObject))
-      setNewContact("")
-      setNewNum("")
-      personServices
-        .create(phonebookObject)
-        .then(response => {
-          console.log(response)
-        })
-      setErrorMsg(["Added person " + newContact,1])
-      setTimeout(() => {
-        setErrorMsg([null,null])
-      },5000)
-    }
-  }
+      };
+
+      personServices.create(phonebookObject)
+      .then(response => {
+        console.log(response);
+        setPersons(persons.concat(phonebookObject));
+        setNewContact("");
+        setNewNum("");
+        setErrorMsg(["Added person " + newContact, 1]);
+        setTimeout(() => {
+          setErrorMsg([null, null]);
+        }, 5000);
+      })
+      .catch(error => {
+        console.error(error);
+        setErrorMsg(["Error something went wrong",2]);
+        setTimeout(() => {
+          setErrorMsg([null, null]);
+        }, 5000);
+      });
+  };  
 
   const Notification = ({ message,msgCode }) => {
     if (message === null) {
