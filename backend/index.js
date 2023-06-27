@@ -2,7 +2,12 @@ const express = require("express");
 const http = require("http");
 var morgan = require("morgan");
 const app = express()
+const cors = require('cors')
+
+
 app.use(express.json())
+app.use(cors())
+
 
 morgan.token("requestData",(req) => {
     return JSON.stringify(req.body);
@@ -67,17 +72,12 @@ const nameIsUnique = (name) => {
 
 }
 
-// -----GET header
-app.get("/",(req,res) => {
-    res.send("<h1>TEST</h1>")
-})
-
 // -----GET all persons
-app.get("/api/persons",(req,res) => {
+app.get("/persons",(req,res) => {
     res.json(persons)
 })
 // -----GET id
-app.get("/api/persons/:id",(request,response) => {
+app.get("/persons/:id",(request,response) => {
     const id = Number(request.params.id)
     console.log(id)
     const person = persons.find(person => person.id === id)
@@ -96,7 +96,7 @@ app.get("/info",(req,res) => {
               <p>${time}</p>` )
 })
 // -----DELETE person based on id
-app.delete('/api/persons/:id',(req,res) => {
+app.delete('/persons/:id',(req,res) => {
     const id = Number(req.params.id)
     persons = persons.filter(person => person.id !== id)
 
@@ -104,7 +104,7 @@ app.delete('/api/persons/:id',(req,res) => {
 })
 
 // -----POST new person
-app.post("/api/persons",(req,res) => {
+app.post("/persons",(req,res) => {
 
 
     const person = req.body;
@@ -128,7 +128,7 @@ app.post("/api/persons",(req,res) => {
 })
 
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3001
 
 app.listen(PORT);
 
