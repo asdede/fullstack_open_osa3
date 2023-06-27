@@ -72,11 +72,11 @@ const nameIsUnique = (name) => {
 }
 
 // -----GET all persons
-app.get("/persons",(req,res) => {
+app.get("/api/persons",(req,res) => {
     res.json(persons)
 })
 // -----GET id
-app.get("/persons/:id",(request,response) => {
+app.get("/api/persons/:id",(request,response) => {
     const id = Number(request.params.id)
     console.log(id)
     const person = persons.find(person => person.id === id)
@@ -95,7 +95,7 @@ app.get("/info",(req,res) => {
               <p>${time}</p>` )
 })
 // -----DELETE person based on id
-app.delete('/persons/:id',(req,res) => {
+app.delete('/api/persons/:id',(req,res) => {
     const id = Number(req.params.id)
     persons = persons.filter(person => person.id !== id)
 
@@ -103,7 +103,7 @@ app.delete('/persons/:id',(req,res) => {
 })
 
 // -----POST new person
-app.post("/persons",(req,res) => {
+app.post("/api/persons",(req,res) => {
 
 
     const person = req.body;
@@ -128,7 +128,6 @@ app.post("/persons",(req,res) => {
 
 
 const PORT = process.env.PORT || 3001
-
-app.listen(PORT);
-
-console.log(`server runnin on port ${PORT}`)
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`)
+  })
