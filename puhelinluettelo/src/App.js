@@ -1,5 +1,4 @@
 import { useState,useEffect } from 'react';
-import axios from 'axios';
 import Contacts from './components/Contacts';
 import checkIfExists from './components/checkIfExists';
 import AddNums from './components/AddNums';
