@@ -99,7 +99,8 @@ app.get("/api/persons/:id", async (request, response) => {
 // -----GET info
 app.get("/info",(req,res) => {
     const time = new Date()
-    const numberOfContacts = getAllContacts().length
+    const persons = getAllContacts()
+    const numberOfContacts = persons.length
     res.send(`<p> Phonebook has info for ${numberOfContacts} people
               <p>${time}</p>` )
 })
