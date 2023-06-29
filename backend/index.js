@@ -19,18 +19,15 @@ morgan.token("requestData",(req) => {
 });
 app.use(morgan(":method :url :status :res[content-length] - :response-time ms :requestData"));
 
-const getAllContacts = () => {
-    let contacts = []
-
-    app.get("/api/persons",(req,res) => {
-        Contact.find({}).then(result => {
-            result.forEach(contact => {
-                contacts.push({name:contact.name,number:contact.number})
-            })
-        })
-    })
-    return contacts
-}
+const getAllContacts = async () => {
+      const contacts = await Contact.find({});
+      const formattedContacts = contacts.map(contact => ({
+        name: contact.name,
+        number: contact.number
+      }));
+    console.log("getallcontacts", formattedContacts);
+    return formattedContacts;
+};
 
 const getRandomID = (min,max) => {
     /* 
@@ -52,23 +49,12 @@ const getRandomID = (min,max) => {
     return id
 }
 
-const nameIsUnique = (name) => {
-    /* 
-    Iterates over persons and
-    checks if name is unique and returns:
-    False if not
-    True if is.
-    */
-    contacts = getAllContacts()
+const nameIsUnique = async (name) => {
+ 
+    const existingContact = await Contact.findOne({ name });
+    return !existingContact; // Returns true if the contact doesn't exist
 
-    console.log(contacts)
-
-   if (contacts.some(contact => contact.name === name)){
-    return false
-   }
-   return true
-
-}
+};
 
 // -----GET all persons
 app.get("/api/persons",(req,res) => {
@@ -97,13 +83,20 @@ app.get("/api/persons/:id", async (request, response) => {
   });
   
 // -----GET info
-app.get("/info",(req,res) => {
-    const time = new Date()
-    const persons = getAllContacts()
-    const numberOfContacts = persons.length
-    res.send(`<p> Phonebook has info for ${numberOfContacts} people
-              <p>${time}</p>` )
-})
+app.get("/info", (req, res) => {
+    const time = new Date();
+    getAllContacts()
+      .then(allpersons => {
+        console.log("allpersons", allpersons);
+        const numberOfContacts = allpersons.length;
+        res.send(`<p>Phonebook has info for ${numberOfContacts} people</p>
+                  <p>${time}</p>`);
+      })
+      .catch(error => {
+        console.error("Error occurred while retrieving contacts:", error);
+        res.status(500).send("Internal server error");
+      });
+  });
 
 // -----DELETE person based on id
 app.delete('/api/persons/:id',(req,res) => {
@@ -117,36 +110,39 @@ app.delete('/api/persons/:id',(req,res) => {
     });
 
 // -----POST new person
-app.post("/api/persons",(req,res) => {
-
-
+app.post("/api/persons", (req, res) => {
     const person = req.body;
-    console.log(person)
+    console.log(person);
+    
     if (!person.name || !person.number || person.name.trim() === '' || person.number.trim() === '') {
-        return res.status(400).json({
-            error:`Missing values name=${person.name} number=${person.number} `
-        })
+      return res.status(400).json({
+        error: `Missing values name=${person.name} number=${person.number}`
+      });
     }
-
-    if (nameIsUnique(person.name)){
-    const contact = new Contact({
-        name:person.name,
-        number:person.number,
-        id:getRandomID(1,999999)
-
+  
+    if (nameIsUnique(person.name)) {
+      const contact = new Contact({
+        name: person.name,
+        number: person.number,
+      });
+  
+      console.log("Person with new id", contact);
+  
+      contact.save()
+        .then(savedContact => {
+          console.log("Saved contact", savedContact);
+          res.json(savedContact);
         })
-        console.log("Person with new id",contact)
-        contact.save().then(savedPerson => {
-            res.json(savedPerson)
-        })
-
-    } else {
-       res.status(409).json({
-           error: "Name already exists in database"
+        .catch(error => {
+          console.error("Error occurred while saving contact:", error);
+          res.status(500).json({ error: "Internal server error" });
         });
-    };
-});
-
+    } else {
+      res.status(409).json({
+        error: "Name already exists in the database"
+      });
+    }
+  });
 app.options("/api/persons", cors());
 
 
