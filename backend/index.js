@@ -114,6 +114,12 @@ app.post("/api/persons", (req, res) => {
     const person = req.body;
     console.log(person);
     
+    if (!person.name.length < 3) {
+      return res.status(400).json({
+        error: "Name is too short, minimum length of 3"
+    })
+    };
+    
     if (!person.name || !person.number || person.name.trim() === '' || person.number.trim() === '') {
       return res.status(400).json({
         error: `Missing values name=${person.name} number=${person.number}`
