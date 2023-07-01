@@ -24,7 +24,7 @@ Osa 3 tehtäväsarja
 - [x] 3.19 step7
 - [ ] 3.20 step8
 - [x] 3.21 step9
-- [ ]
+- [x] 3.22 lint
 
 ### Sivu jossa sovellus
 
