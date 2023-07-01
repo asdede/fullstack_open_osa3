@@ -4,15 +4,27 @@ Osa 3 tehtäväsarja
 ### Tehtävät:
 
 - [x] 3.1 puhelinluettelon backend step1
-- [x] 3.2 puhelinluettelon backend step2
-- [x] 3.3 puhelinluettelon backend step3
-- [x] 3.4 puhelinluettelon backend step4
-- [x] 3.5 puhelinluettelon backend step5
-- [x] 3.6 puhelinluettelon backend step6
-- [x] 3.7 puhelinluettelon backend step7
-- [x] 3.8 puhelinluettelon backend step8
-- [x] 3.9 puhelinluettelon backend step9
- 
+- [x] 3.2 step2
+- [x] 3.3 step3
+- [x] 3.4 step4
+- [x] 3.5 step5
+- [x] 3.6 step6
+- [x] 3.7 step7
+- [x] 3.8 step8
+- [x] 3.9 step9
+- [x] 3.10 step10
+- [x] 3.11 step11
+- [x] 3.12 tietokanta komentorivisä
+- [x] 3.13 puhelinluettelo ja tietokanta, step1
+- [x] 3.14 step2
+- [x] 3.15 step3
+- [x] 3.16 step4
+- [ ] 3.17 step5
+- [x] 3.18 step6
+- [x] 3.19 step7
+- [ ] 3.20 step8
+- [x] 3.21 step9
+- [ ]
 
 ### Sivu jossa sovellus
 

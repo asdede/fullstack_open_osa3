@@ -14,7 +14,7 @@ const create = newObject => {
     .catch(error => {
         console.error(error);
         throw error;
-    })
+    });
 }
 
 const update = (id,newObject) => {

@@ -60,7 +60,8 @@ const App = () => {
       })
       .catch(error => {
         console.error(error);
-        setErrorMsg(["Error something went wrong",2]);
+        const msg = error.response ? error.response.statusText : "Something went wrong";
+        setErrorMsg([msg,2]);
         setTimeout(() => {
           setErrorMsg([null, null]);
         }, 5000);
@@ -121,14 +122,13 @@ const App = () => {
         },5000)
       })
       .catch(error => {
-        setErrorMsg(
-          'Note '+(persons.find(person => person.id === id)) +' was already deleted from server'
-        )
+        console.error(error);
+        setErrorMsg(["Something went wrong",2]);
         setTimeout(() => {
-          setErrorMsg([null,null])
-        },5000)
+          setErrorMsg([null, null]);
+        }, 5000);
       });
-    }
+  };  
     
   };
 
