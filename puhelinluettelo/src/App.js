@@ -5,10 +5,6 @@ import AddNums from './components/AddNums';
 import Search from './components/Search';
 import personServices from './services/persons'
 
-
-
-
-
 const App = () => {
 
   const hook =() => {
